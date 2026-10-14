@@ -120,7 +120,7 @@ if (stage && canvas) {
         bands: ["#e7a274", "#efc486", "#533e68", "#c76e67"],
         seed: 13,
         scale: 1,
-        speed: 0.11,
+        speed: 0.18,
         phase: 0.2,
         ring: true,
       }),
@@ -129,7 +129,7 @@ if (stage && canvas) {
         bands: ["#67c7bf", "#83d4d2", "#234b70", "#50a5be"],
         seed: 29,
         scale: 0.43,
-        speed: -0.16,
+        speed: -0.24,
         phase: 2.1,
         ring: false,
       }),
@@ -138,7 +138,7 @@ if (stage && canvas) {
         bands: ["#f0c879", "#ed9c68", "#8c4e57", "#e3b17e"],
         seed: 47,
         scale: 0.28,
-        speed: 0.19,
+        speed: 0.28,
         phase: 4.2,
         ring: false,
       }),
@@ -206,8 +206,8 @@ if (stage && canvas) {
 
         planet.group.scale.setScalar(radius);
         planet.group.position.set(
-          anchor.x + Math.cos(orbit) * radius * 0.18,
-          anchor.y + Math.sin(orbit) * radius * 0.24,
+          anchor.x + Math.cos(orbit) * radius * 0.42,
+          anchor.y + Math.sin(orbit) * radius * 0.3,
           index * -0.4,
         );
         planet.sphere.rotation.y = time * planet.speed * 1.7;
@@ -220,7 +220,7 @@ if (stage && canvas) {
     let lastTime = 0;
 
     function render(time) {
-      const seconds = reducedMotion ? 0 : time * 0.0001;
+      const seconds = reducedMotion ? 0 : time * 0.001;
       positionPlanets(seconds);
       if (starMaterial && !reducedMotion) {
         starMaterial.opacity = 0.68 + Math.sin(seconds * 1.8) * 0.08;

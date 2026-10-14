@@ -193,21 +193,23 @@ if (stage && canvas) {
     }
 
     function positionPlanets(time) {
-      const anchors = [
-        { x: view.halfWidth * 0.39, y: -view.halfHeight * 0.02 },
-        { x: view.halfWidth * 0.46, y: view.halfHeight * 0.49 },
-        { x: view.halfWidth * 0.2, y: -view.halfHeight * 0.55 },
+      const lanes = [
+        { y: -view.halfHeight * 0.02, phase: 0.2 },
+        { y: view.halfHeight * 0.49, phase: 2.1 },
+        { y: -view.halfHeight * 0.55, phase: 4.2 },
       ];
 
       planets.forEach((planet, index) => {
         const radius = view.planetRadius * planet.scale;
         const orbit = time * planet.speed + planet.phase;
-        const anchor = anchors[index];
+        const progress = ((orbit / (Math.PI * 2)) % 1 + 1) % 1;
+        const lane = lanes[index];
+        const travelWidth = view.halfWidth * 2 + radius * 3;
 
         planet.group.scale.setScalar(radius);
         planet.group.position.set(
-          anchor.x + Math.cos(orbit) * radius * 0.42,
-          anchor.y + Math.sin(orbit) * radius * 0.3,
+          -view.halfWidth - radius * 1.5 + progress * travelWidth,
+          lane.y + Math.sin(orbit * 0.2 + lane.phase) * radius * 0.42,
           index * -0.4,
         );
         planet.sphere.rotation.y = time * planet.speed * 1.7;

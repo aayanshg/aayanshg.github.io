@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f4ee">
+  <meta name="description" content="{{ page.description | escape }}">
+  <title>{{ page.title | escape }} — Aayansh Gupta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f4ee;
+      --surface: #fff;
+      --ink: #242720;
+      --muted: #696d63;
+      --line: #d9dbd1;
+      --green: #c9ed68;
+      --blue: #b5d5f0;
+      --coral: #db7057;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+
+    .page-shell { width: min(1180px, calc(100% - 64px)); margin: 0 auto; }
+
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .wordmark { display: inline-flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 800; text-decoration: none; }
+    .mark { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: var(--green); font-size: 13px; }
+    .topbar nav { display: flex; gap: 28px; }
+    .topbar nav a { color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; }
+    .topbar nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 6px; }
+
+    .intro { position: relative; padding: 70px 0 54px; border-bottom: 1px solid var(--line); }
+    .eyebrow, .section-label, .recipe-index h2, .recipe-number, .footer-note { font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0; text-transform: uppercase; }
+    .eyebrow { margin: 0 0 18px; color: var(--muted); }
+    .intro h1 { max-width: 720px; margin: 0; font-size: 64px; font-weight: 600; line-height: 1.02; }
+    .intro-copy { max-width: 580px; margin: 18px 0 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .recipe-count { position: absolute; top: 84px; right: 0; display: grid; width: 90px; height: 90px; place-items: center; border-radius: 50%; background: var(--blue); font-family: var(--mono); font-size: 12px; text-align: center; }
+
+    .cookbook { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 54px; align-items: start; padding: 42px 0 88px; }
+    .recipe-index { position: sticky; top: 24px; padding: 22px 20px; border: 1px solid var(--line); background: rgba(255, 255, 255, .58); }
+    .recipe-index h2 { margin: 0 0 15px; color: var(--muted); }
+    .recipe-index ul { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+    .recipe-index a { display: block; padding: 7px 0; font-size: 12px; line-height: 1.45; text-decoration: none; }
+    .recipe-index a:hover, .recipe-index a:focus-visible { color: #7a3f2f; text-decoration: underline; text-underline-offset: 3px; }
+    .recipe-index .template-link { display: inline-block; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12px; font-weight: 700; }
+
+    .recipe-content { min-width: 0; counter-reset: recipe; }
+    .recipe-content h2 { display: flex; align-items: baseline; gap: 16px; margin: 0; padding: 34px 0 17px; border-top: 1px solid var(--line); font-size: 29px; font-weight: 600; line-height: 1.2; scroll-margin-top: 22px; }
+    .recipe-content h2::before { flex: 0 0 auto; color: var(--coral); content: counter(recipe, decimal-leading-zero); counter-increment: recipe; font-family: var(--mono); font-size: 11px; }
+    .recipe-content h2:first-child { padding-top: 0; border-top: 0; }
+    .recipe-content h3 { margin: 22px 0 10px; font-size: 14px; font-weight: 800; }
+    .recipe-content p { max-width: 720px; color: #4e5249; font-size: 14px; line-height: 1.75; }
+    .recipe-content ul, .recipe-content ol { max-width: 780px; margin: 0; padding-left: 22px; }
+    .recipe-content li { padding: 0 0 7px 4px; color: #42463e; font-size: 13px; line-height: 1.7; }
+    .recipe-content li::marker { color: #758143; }
+    .recipe-content strong { color: var(--ink); }
+    .recipe-content h2 + p { margin-top: 0; }
+    .recipe-content h2 + h3 { margin-top: 4px; }
+    .recipe-content h3 + ul, .recipe-content h3 + ol { margin-bottom: 23px; }
+    .recipe-content blockquote { margin: 14px 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--green); color: var(--muted); }
+
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 22px 0 30px; border-top: 1px solid var(--line); color: var(--muted); }
+    .footer-note { font-size: 10px; }
+
+    @media (max-width: 800px) {
+      .page-shell { width: min(100% - 40px, 620px); }
+      .intro { padding: 54px 0 38px; }
+      .intro h1 { max-width: 480px; padding-right: 76px; font-size: 48px; }
+      .recipe-count { top: 53px; width: 68px; height: 68px; font-size: 10px; }
+      .cookbook { grid-template-columns: 1fr; gap: 34px; padding-top: 28px; }
+      .recipe-index { position: static; padding: 18px; }
+      .recipe-index ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+    }
+
+    @media (max-width: 460px) {
+      .topbar { min-height: 68px; }
+      .topbar nav { gap: 14px; }
+      .topbar nav a { font-size: 12px; }
+      .intro h1 { padding-right: 0; font-size: 42px; }
+      .recipe-count { position: static; width: auto; height: auto; display: inline-block; margin-top: 20px; padding: 9px 12px; border-radius: 2px; }
+      .recipe-content h2 { gap: 10px; font-size: 24px; }
+      footer { flex-direction: column; gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="wordmark" href="/" aria-label="Aayansh Gupta, home">
+        <span class="mark" aria-hidden="true">A</span>
+        <span>Aayansh Gupta</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/recipes/cookbook.html" aria-current="page">Recipes</a>
+      </nav>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Kitchen notes / 01</p>
+      <h1 id="page-title">{{ page.title | escape }}</h1>
+      <p class="intro-copy">{{ page.description | escape }}</p>
+      <span class="recipe-count" aria-label="13 recipes">13<br>recipes</span>
+    </section>
+
+    <main class="cookbook">
+      <aside class="recipe-index" aria-label="Recipe index">
+        <h2>In this collection</h2>
+        <ul>
+          <li><a href="#chocolate-cookies-without-egg">Chocolate cookies without egg</a></li>
+          <li><a href="#chocolate-cookies">Chocolate cookies</a></li>
+          <li><a href="#coconut-cookies-without-egg">Coconut cookies without egg</a></li>
+          <li><a href="#coconut-cookies">Coconut cookies</a></li>
+          <li><a href="#pancakes">Pancakes</a></li>
+          <li><a href="#cupcakes">Cupcakes</a></li>
+          <li><a href="#ice-cream">No-churn ice cream</a></li>
+          <li><a href="#cold-coffee">Cold coffee</a></li>
+          <li><a href="#gelato">Gelato</a></li>
+          <li><a href="#carrot-cake">Carrot cake</a></li>
+          <li><a href="#chocolate-cake">Chocolate cake</a></li>
+          <li><a href="#crepes">Crêpes</a></li>
+          <li><a href="#croissants">Croissants</a></li>
+        </ul>
+        <a class="template-link" href="/recipes/RECIPE_TEMPLATE.html">Open recipe template</a>
+      </aside>
+
+      <article class="recipe-content">
+        {{ content }}
+      </article>
+    </main>
+
+    <footer>
+      <span class="footer-note">Aayansh Gupta</span>
+      <span class="footer-note"><a href="/">Back to home</a></span>
+    </footer>
+  </div>
+</body>
+</html>

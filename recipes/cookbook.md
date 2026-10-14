@@ -1,5 +1,5 @@
 ---
-title: "The recipe shelf"
+title: "Cookbook"
 description: "A growing collection of cookies, cakes, breakfasts, and frozen treats."
 layout: recipe
 ---
